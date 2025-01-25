@@ -13,7 +13,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-git"
+      "path": "./apps/node_modules/cz-git"
     }
   },
   "private": true,
