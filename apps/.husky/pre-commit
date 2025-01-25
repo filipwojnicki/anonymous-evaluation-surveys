@@ -1,1 +1,2 @@
+cd apps
 npm run precommit

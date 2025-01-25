@@ -48,5 +48,16 @@
         }
       }
     }
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.28.20"
+  },
+  "dependencies": {
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/sequelize": "^11.0.0",
+    "joi": "^17.13.3",
+    "pg": "^8.13.1",
+    "sequelize": "^6.37.5",
+    "sequelize-typescript": "^2.1.6"
   }
 }

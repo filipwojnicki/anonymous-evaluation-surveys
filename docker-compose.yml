@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: surveys
+      POSTGRES_PASSWORD: Qwerty123456
+      POSTGRES_DB: surveys
+    ports:
+      - "5432:5432"
+    volumes:
+      - anonymous_evaluation_surveys_postgres_data:/var/lib/postgresql/data
+    networks:
+      - anonymous_evaluation_surveys_network
+
+networks:
+  anonymous_evaluation_surveys_network:
+    driver: bridge
+
+volumes:
+  anonymous_evaluation_surveys_postgres_data:
