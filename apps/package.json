@@ -8,7 +8,7 @@
     "lint": "nx run-many --target=lint --all",
     "test": "nx run-many --target=test --all",
     "precommit": "nx affected -t lint format test --parallel=5",
-    "prepare": "husky",
+    "prepare": "cd .. && husky install apps/.husky",
     "commit": "git add --all && cz"
   },
   "config": {
