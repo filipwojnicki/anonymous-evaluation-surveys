@@ -1,0 +1,9 @@
+{
+  "installation": {
+    "version": "20.3.3",
+    "plugins": {
+      "@nx/eslint": "20.3.3",
+      "@nx/react": "20.3.3"
+    }
+  }
+}
