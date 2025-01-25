@@ -3,6 +3,9 @@ import { AppController } from './app/app.controller';
 import { AppService } from './app/app.service';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { SurveyModule } from './survey/survey.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 import Joi from 'joi';
 import config from './config/config';
 
@@ -26,6 +29,9 @@ import config from './config/config';
       },
     }),
     DatabaseModule,
+    SurveyModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
