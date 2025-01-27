@@ -7,7 +7,9 @@ import {
   UpdatedAt,
   HasMany,
 } from 'sequelize-typescript';
+import { registerEnumType } from '@nestjs/graphql';
 import { Survey } from '../../survey/models/survey.model';
+import { Role } from '../types';
 
 @Table({
   timestamps: true,
@@ -23,14 +25,23 @@ export class User extends Model {
 
   @Column({
     allowNull: false,
+    type: DataType.STRING,
     unique: true,
   })
   email!: string;
 
   @Column({
     allowNull: false,
+    type: DataType.STRING(60),
   })
-  password!: string;
+  passwordHash!: string;
+
+  @Column({
+    defaultValue: 'author',
+    allowNull: false,
+    type: DataType.ENUM(...Object.values(Role)),
+  })
+  role!: string;
 
   @CreatedAt
   public override createdAt!: Date;
@@ -40,3 +51,7 @@ export class User extends Model {
   @HasMany(() => Survey)
   surveys!: Survey[];
 }
+
+registerEnumType(Role, {
+  name: 'Role',
+});
