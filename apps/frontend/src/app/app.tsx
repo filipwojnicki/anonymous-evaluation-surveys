@@ -1,15 +1,9 @@
-import NxWelcome from './nx-welcome';
-
 import { Route, Routes, Link } from 'react-router-dom';
+import LoginForm from './components/LoginForm/LoginForm';
 
 export function App() {
   return (
     <div>
-      <NxWelcome title="frontend" />
-
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
       <br />
       <hr />
       <br />
@@ -23,6 +17,7 @@ export function App() {
           </li>
         </ul>
       </div>
+      <LoginForm />
       <Routes>
         <Route
           path="/"
