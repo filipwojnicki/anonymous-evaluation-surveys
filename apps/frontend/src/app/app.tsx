@@ -1,43 +1,27 @@
-import { Route, Routes, Link } from 'react-router-dom';
-import LoginForm from './components/LoginForm/LoginForm';
+import { Route, Routes } from 'react-router-dom';
+import { LoginForm, ProtectedRoute } from './components';
+import { Home } from './components/Home';
+import { Dashboard } from './components/Dashboard';
+import { CreateSurvey } from './components/CreateSurvey';
+import { ViewAllSurveys } from './components/ViewAllSurveys';
+import { SurveyAnalytics } from './components/SurveyAnalytics';
+import { RegisterForm } from './components/RegisterForm';
 
 export function App() {
   return (
     <div>
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
-      <LoginForm />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<ProtectedRoute />}>
+          <Route path="" element={<Dashboard />} />
+          <Route path="create-survey" element={<CreateSurvey />} />
+          <Route path="edit-survey/:id" element={<CreateSurvey />} />
+          <Route path="all-surveys" element={<ViewAllSurveys />} />
+          <Route path="analytics" element={<SurveyAnalytics />} />
+        </Route>
       </Routes>
-      {/* END: routes */}
     </div>
   );
 }
