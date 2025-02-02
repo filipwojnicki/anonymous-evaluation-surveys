@@ -185,10 +185,42 @@ export const SurveyAnalyticsDetails = () => {
                 )}
 
                 {question.type === QuestionType.Text.toLowerCase() && (
-                  <div className="bg-white rounded-lg p-4">
-                    <p className="text-gray-600">
-                      Total text responses: {question.answerFrequency.length}
-                    </p>
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-lg p-6">
+                      <p className="text-gray-600 mb-2">
+                        Total text responses: {question.answerFrequency.length}
+                      </p>
+
+                      <div className="mt-6">
+                        <h4 className="text-lg font-medium text-gray-700 mb-4">
+                          Most Common Words
+                        </h4>
+                        <div className="space-y-3">
+                          {question.answerFrequency.map((word) => (
+                            <div
+                              key={word.text}
+                              className="bg-gray-50 rounded-lg p-4"
+                            >
+                              <div className="flex justify-between mb-2">
+                                <span className="font-medium text-gray-700">
+                                  {word.text}
+                                </span>
+                                <span className="text-gray-500">
+                                  {word.count} occurrences (
+                                  {word.percentage.toFixed(1)}%)
+                                </span>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-2">
+                                <div
+                                  className="bg-blue-600 h-2 rounded-full"
+                                  style={{ width: `${word.percentage}%` }}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>

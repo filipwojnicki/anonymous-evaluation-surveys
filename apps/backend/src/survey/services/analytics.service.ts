@@ -12,6 +12,13 @@ import { Sequelize } from 'sequelize-typescript';
 import { SurveyAnalyticsDetailsDto } from '../dto/question-analytics.dto';
 import { QuestionType } from '../types/question-type.enum';
 import { Op } from 'sequelize';
+import { STOP_WORDS } from '../utils';
+
+type WordFrequency = {
+  text: string;
+  count: number;
+  percentage: number;
+};
 
 @Injectable()
 export class AnalyticsService {
@@ -54,16 +61,44 @@ export class AnalyticsService {
         });
 
         if (question.type === QuestionType.TEXT) {
+          const words = answers
+            .flatMap((answer) =>
+              answer.answer
+                .toLowerCase()
+                .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
+                .split(/\s+/)
+            )
+            .filter((word) => word.length > 2 && !STOP_WORDS.has(word));
+
+          const wordCount = words.reduce(
+            (acc: Record<string, number>, word) => {
+              acc[word] = (acc[word] || 0) + 1;
+              return acc;
+            },
+            {}
+          );
+
+          const wordFrequency: WordFrequency[] = Object.entries(wordCount)
+            .map(([text, count]) => ({
+              text,
+              count: count as number,
+              percentage: ((count as number) / words.length) * 100,
+            }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 10);
+
           return {
             id: question.id,
             text: question.text,
             type: question.type,
-            answerFrequency: answers.map((answer) => ({
-              text: answer.answer,
-              count: Number(answer.get('count')),
-              percentage: (Number(answer.get('count')) / responses) * 100,
-            })),
+            answerFrequency: wordFrequency,
           };
+
+          // answers.map((answer) => ({
+          //   text: answer.answer,
+          //   count: Number(answer.get('count')),
+          //   percentage: (Number(answer.get('count')) / responses) * 100,
+          // }));
         }
 
         const optionIds = new Set(
