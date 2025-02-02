@@ -19,6 +19,12 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AnswerFrequencyDto = {
+  count: Scalars['Int']['output'];
+  percentage: Scalars['Float']['output'];
+  text: Scalars['String']['output'];
+};
+
 export type AnswerInput = {
   answer: Scalars['String']['input'];
   questionId: Scalars['String']['input'];
@@ -121,8 +127,10 @@ export type Query = {
   getQuestion: QuestionDto;
   getQuestions: Array<QuestionDto>;
   getSurvey: SurveyDto;
+  getSurveyAnalyticsDetails: SurveyAnalyticsDetailsDto;
   getSurveyByToken: SurveyDto;
   getSurveyTokens: Array<TokenDto>;
+  getSurveysAnalytics: Array<SurveyAnalyticsDto>;
   getSurveysByUser: Array<SurveyDto>;
   hello: Scalars['String']['output'];
 };
@@ -144,6 +152,11 @@ export type QueryGetSurveyArgs = {
 };
 
 
+export type QueryGetSurveyAnalyticsDetailsArgs = {
+  surveyId: Scalars['String']['input'];
+};
+
+
 export type QueryGetSurveyByTokenArgs = {
   token: Scalars['String']['input'];
 };
@@ -151,6 +164,13 @@ export type QueryGetSurveyByTokenArgs = {
 
 export type QueryGetSurveyTokensArgs = {
   surveyId: Scalars['String']['input'];
+};
+
+export type QuestionAnalyticsDto = {
+  answerFrequency: Array<AnswerFrequencyDto>;
+  id: Scalars['String']['output'];
+  text: Scalars['String']['output'];
+  type: Scalars['String']['output'];
 };
 
 export type QuestionDto = {
@@ -176,6 +196,21 @@ export type RegisterInput = {
 export type SubmitSurveyResponseInput = {
   answers: Array<AnswerInput>;
   token: Scalars['String']['input'];
+};
+
+export type SurveyAnalyticsDetailsDto = {
+  completionRate: Scalars['Float']['output'];
+  id: Scalars['String']['output'];
+  questions: Array<QuestionAnalyticsDto>;
+  responses: Scalars['Int']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type SurveyAnalyticsDto = {
+  completionRate: Scalars['Float']['output'];
+  id: Scalars['String']['output'];
+  responses: Scalars['Float']['output'];
+  title: Scalars['String']['output'];
 };
 
 export type SurveyDto = {
@@ -294,6 +329,13 @@ export type GetSurveyQueryVariables = Exact<{
 
 export type GetSurveyQuery = { getSurvey: { id: string, title: string, description?: string | null } };
 
+export type GetSurveyAnalyticsDetailsQueryVariables = Exact<{
+  surveyId: Scalars['String']['input'];
+}>;
+
+
+export type GetSurveyAnalyticsDetailsQuery = { getSurveyAnalyticsDetails: { id: string, title: string, responses: number, completionRate: number, questions: Array<{ id: string, text: string, type: string, answerFrequency: Array<{ text: string, count: number, percentage: number }> }> } };
+
 export type GetSurveyByTokenQueryVariables = Exact<{
   token: Scalars['String']['input'];
 }>;
@@ -307,6 +349,11 @@ export type GetSurveyTokensQueryVariables = Exact<{
 
 
 export type GetSurveyTokensQuery = { getSurveyTokens: Array<{ id: string, token: string }> };
+
+export type GetSurveysAnalyticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSurveysAnalyticsQuery = { getSurveysAnalytics: Array<{ id: string, title: string, responses: number, completionRate: number }> };
 
 export type GetSurveysByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -745,6 +792,59 @@ export type GetSurveyQueryHookResult = ReturnType<typeof useGetSurveyQuery>;
 export type GetSurveyLazyQueryHookResult = ReturnType<typeof useGetSurveyLazyQuery>;
 export type GetSurveySuspenseQueryHookResult = ReturnType<typeof useGetSurveySuspenseQuery>;
 export type GetSurveyQueryResult = Apollo.QueryResult<GetSurveyQuery, GetSurveyQueryVariables>;
+export const GetSurveyAnalyticsDetailsDocument = gql`
+    query GetSurveyAnalyticsDetails($surveyId: String!) {
+  getSurveyAnalyticsDetails(surveyId: $surveyId) {
+    id
+    title
+    responses
+    completionRate
+    questions {
+      id
+      text
+      type
+      answerFrequency {
+        text
+        count
+        percentage
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSurveyAnalyticsDetailsQuery__
+ *
+ * To run a query within a React component, call `useGetSurveyAnalyticsDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSurveyAnalyticsDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSurveyAnalyticsDetailsQuery({
+ *   variables: {
+ *      surveyId: // value for 'surveyId'
+ *   },
+ * });
+ */
+export function useGetSurveyAnalyticsDetailsQuery(baseOptions: Apollo.QueryHookOptions<GetSurveyAnalyticsDetailsQuery, GetSurveyAnalyticsDetailsQueryVariables> & ({ variables: GetSurveyAnalyticsDetailsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSurveyAnalyticsDetailsQuery, GetSurveyAnalyticsDetailsQueryVariables>(GetSurveyAnalyticsDetailsDocument, options);
+      }
+export function useGetSurveyAnalyticsDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSurveyAnalyticsDetailsQuery, GetSurveyAnalyticsDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSurveyAnalyticsDetailsQuery, GetSurveyAnalyticsDetailsQueryVariables>(GetSurveyAnalyticsDetailsDocument, options);
+        }
+export function useGetSurveyAnalyticsDetailsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetSurveyAnalyticsDetailsQuery, GetSurveyAnalyticsDetailsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetSurveyAnalyticsDetailsQuery, GetSurveyAnalyticsDetailsQueryVariables>(GetSurveyAnalyticsDetailsDocument, options);
+        }
+export type GetSurveyAnalyticsDetailsQueryHookResult = ReturnType<typeof useGetSurveyAnalyticsDetailsQuery>;
+export type GetSurveyAnalyticsDetailsLazyQueryHookResult = ReturnType<typeof useGetSurveyAnalyticsDetailsLazyQuery>;
+export type GetSurveyAnalyticsDetailsSuspenseQueryHookResult = ReturnType<typeof useGetSurveyAnalyticsDetailsSuspenseQuery>;
+export type GetSurveyAnalyticsDetailsQueryResult = Apollo.QueryResult<GetSurveyAnalyticsDetailsQuery, GetSurveyAnalyticsDetailsQueryVariables>;
 export const GetSurveyByTokenDocument = gql`
     query GetSurveyByToken($token: String!) {
   getSurveyByToken(token: $token) {
@@ -836,6 +936,48 @@ export type GetSurveyTokensQueryHookResult = ReturnType<typeof useGetSurveyToken
 export type GetSurveyTokensLazyQueryHookResult = ReturnType<typeof useGetSurveyTokensLazyQuery>;
 export type GetSurveyTokensSuspenseQueryHookResult = ReturnType<typeof useGetSurveyTokensSuspenseQuery>;
 export type GetSurveyTokensQueryResult = Apollo.QueryResult<GetSurveyTokensQuery, GetSurveyTokensQueryVariables>;
+export const GetSurveysAnalyticsDocument = gql`
+    query GetSurveysAnalytics {
+  getSurveysAnalytics {
+    id
+    title
+    responses
+    completionRate
+  }
+}
+    `;
+
+/**
+ * __useGetSurveysAnalyticsQuery__
+ *
+ * To run a query within a React component, call `useGetSurveysAnalyticsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSurveysAnalyticsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSurveysAnalyticsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSurveysAnalyticsQuery(baseOptions?: Apollo.QueryHookOptions<GetSurveysAnalyticsQuery, GetSurveysAnalyticsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSurveysAnalyticsQuery, GetSurveysAnalyticsQueryVariables>(GetSurveysAnalyticsDocument, options);
+      }
+export function useGetSurveysAnalyticsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSurveysAnalyticsQuery, GetSurveysAnalyticsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSurveysAnalyticsQuery, GetSurveysAnalyticsQueryVariables>(GetSurveysAnalyticsDocument, options);
+        }
+export function useGetSurveysAnalyticsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetSurveysAnalyticsQuery, GetSurveysAnalyticsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetSurveysAnalyticsQuery, GetSurveysAnalyticsQueryVariables>(GetSurveysAnalyticsDocument, options);
+        }
+export type GetSurveysAnalyticsQueryHookResult = ReturnType<typeof useGetSurveysAnalyticsQuery>;
+export type GetSurveysAnalyticsLazyQueryHookResult = ReturnType<typeof useGetSurveysAnalyticsLazyQuery>;
+export type GetSurveysAnalyticsSuspenseQueryHookResult = ReturnType<typeof useGetSurveysAnalyticsSuspenseQuery>;
+export type GetSurveysAnalyticsQueryResult = Apollo.QueryResult<GetSurveysAnalyticsQuery, GetSurveysAnalyticsQueryVariables>;
 export const GetSurveysByUserDocument = gql`
     query GetSurveysByUser {
   getSurveysByUser {

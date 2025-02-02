@@ -12,6 +12,7 @@ import { SurveyDto } from '../dto/survey.dto';
 import type { Payload } from '../../auth/auth.strategy';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
 import { TokenDto } from '../dto/token.dto';
+import { SurveyAnalyticsDto } from '../dto/survey-analytics.dto';
 
 @Resolver(() => SurveyDto)
 export class SurveyResolver {
@@ -61,6 +62,12 @@ export class SurveyResolver {
   @Query(() => SurveyDto)
   async getSurveyByToken(@Args('token') token: string) {
     return await this.surveyService.findByToken(token);
+  }
+
+  @Query(() => [SurveyAnalyticsDto])
+  @UseGuards(GqlAuthGuard)
+  async getSurveysAnalytics(@CurrentUser() user: Payload) {
+    return this.surveyService.getSurveysAnalytics(user.userId);
   }
 
   @UseGuards(GqlAuthGuard)

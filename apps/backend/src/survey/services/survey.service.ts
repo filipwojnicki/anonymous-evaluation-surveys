@@ -6,10 +6,11 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
-import { AnswerOption, Question, Survey, Token } from '../models';
+import { AnswerOption, Question, Response, Survey, Token } from '../models';
 import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { User } from '../../user/models';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
+import { SurveyAnalyticsDto } from '../dto/survey-analytics.dto';
 
 @Injectable()
 export class SurveyService {
@@ -19,7 +20,9 @@ export class SurveyService {
     @InjectModel(Survey)
     private surveyModel: typeof Survey,
     @InjectModel(Token)
-    private tokenModel: typeof Token
+    private tokenModel: typeof Token,
+    @InjectModel(Response)
+    private responseModel: typeof Response
   ) {}
 
   async createSurvey(data: CreateSurveyDto, userId: User['id']) {
@@ -57,6 +60,28 @@ export class SurveyService {
         creatorId: userId,
       },
     });
+  }
+
+  async getSurveysAnalytics(userId: string) {
+    const surveys = await this.surveyModel.findAll({
+      where: { creatorId: userId },
+    });
+
+    return Promise.all(
+      surveys.map(async (survey) => {
+        const [responses, tokens] = await Promise.all([
+          this.responseModel.count({ where: { surveyId: survey.id } }),
+          this.tokenModel.count({ where: { surveyId: survey.id } }),
+        ]);
+
+        return {
+          id: survey.id,
+          title: survey.title,
+          responses,
+          completionRate: tokens > 0 ? (responses / tokens) * 100 : 0,
+        };
+      })
+    ) as Promise<SurveyAnalyticsDto[]>;
   }
 
   async getSurvey(surveyId: Survey['id'], userId: User['id']) {

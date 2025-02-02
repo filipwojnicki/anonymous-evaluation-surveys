@@ -12,6 +12,7 @@ import { EditSurvey } from './components/EditSurvey';
 import { EditQuestion } from './components/EditQuestion';
 import { Survey } from './components/Survey';
 import { ThankYou } from './components/ThankYou';
+import { SurveyAnalyticsDetails } from './components/SurveyAnalyticsDetails';
 
 export function App() {
   return (
@@ -46,6 +47,9 @@ export function App() {
           />
 
           <Route path="analytics" element={<SurveyAnalytics />} />
+          <Route path="analytics/:id" element={<SurveyAnalyticsDetails />} />
+
+          <Route path="*" element={<ProtectedRoute />} />
         </Route>
       </Routes>
     </div>

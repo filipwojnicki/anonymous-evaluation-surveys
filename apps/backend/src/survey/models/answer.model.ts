@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { Response } from './response.model';
 import { Question } from './question.model';
+import { AnswerOption } from './answer-option.model';
 
 @Table({
   timestamps: true,
@@ -42,4 +43,11 @@ export class Answer extends Model {
 
   @BelongsTo(() => Question)
   question!: Question;
+
+  @BelongsTo(() => AnswerOption, {
+    foreignKey: 'answer',
+    targetKey: 'id',
+    constraints: false,
+  })
+  answerOption!: AnswerOption;
 }

@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AnswerFrequencyDto {
+  count: Int!
+  percentage: Float!
+  text: String!
+}
+
 input AnswerInput {
   answer: String!
   questionId: String!
@@ -60,10 +66,19 @@ type Query {
   getQuestion(questionId: String!, surveyId: String!): QuestionDto!
   getQuestions(surveyId: String!): [QuestionDto!]!
   getSurvey(id: String!): SurveyDto!
+  getSurveyAnalyticsDetails(surveyId: String!): SurveyAnalyticsDetailsDto!
   getSurveyByToken(token: String!): SurveyDto!
   getSurveyTokens(surveyId: String!): [TokenDto!]!
+  getSurveysAnalytics: [SurveyAnalyticsDto!]!
   getSurveysByUser: [SurveyDto!]!
   hello: String!
+}
+
+type QuestionAnalyticsDto {
+  answerFrequency: [AnswerFrequencyDto!]!
+  id: String!
+  text: String!
+  type: String!
 }
 
 type QuestionDto {
@@ -89,6 +104,21 @@ input RegisterInput {
 input SubmitSurveyResponseInput {
   answers: [AnswerInput!]!
   token: String!
+}
+
+type SurveyAnalyticsDetailsDto {
+  completionRate: Float!
+  id: String!
+  questions: [QuestionAnalyticsDto!]!
+  responses: Int!
+  title: String!
+}
+
+type SurveyAnalyticsDto {
+  completionRate: Float!
+  id: String!
+  responses: Float!
+  title: String!
 }
 
 type SurveyDto {

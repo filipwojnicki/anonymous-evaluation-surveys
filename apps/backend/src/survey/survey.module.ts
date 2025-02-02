@@ -6,8 +6,14 @@ import {
   QuestionResolver,
   SurveyResolver,
   ResponseResolver,
+  AnalyticsResolver,
 } from './resolvers';
-import { QuestionService, SurveyService, ResponseService } from './services';
+import {
+  QuestionService,
+  SurveyService,
+  ResponseService,
+  AnalyticsService,
+} from './services';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -26,9 +32,11 @@ import { ConfigModule } from '@nestjs/config';
     QuestionService,
     SurveyService,
     ResponseService,
+    AnalyticsService,
     QuestionResolver,
     SurveyResolver,
     ResponseResolver,
+    AnalyticsResolver,
   ],
 })
 export class SurveyModule {}
