@@ -40,12 +40,6 @@ export class Survey extends Model {
   })
   creatorId!: string;
 
-  @Column({
-    type: DataType.BOOLEAN,
-    allowNull: false,
-  })
-  isAnonymous!: boolean;
-
   @CreatedAt
   public override createdAt!: Date;
   @UpdatedAt

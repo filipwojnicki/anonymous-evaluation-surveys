@@ -2,14 +2,10 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'http://localhost:3000/graphql',
-  documents: 'frontend/src/api/gql/**/*.{ts,tsx}',
+  schema: '../apps/src/schema.gql',
+  documents: 'frontend/src/**/*.{ts,tsx}',
   generates: {
-    'frontend/src/api/gql/__generated__/': {
-      preset: 'client',
-      presetConfig: {
-        gqlTagName: 'gql',
-      },
+    'frontend/src/api/gql/__generated__/graphql.ts': {
       plugins: [
         'typescript',
         'typescript-operations',
@@ -17,21 +13,13 @@ const config: CodegenConfig = {
       ],
       config: {
         withHooks: true,
-        withComponent: false,
-        withHOC: false,
-        withMutationFn: false,
-        withRefetchFn: false,
-        withQueryFn: false,
-        withSubscriptionFn: false,
-        withTypename: false,
-        reactApolloVersion: 3,
-        ignoreNoDocuments: true,
+        dedupeOperationSuffix: true,
+        dedupeFragments: true,
+        skipTypename: true,
       },
     },
-    './graphql.schema.json': {
-      plugins: ['introspection'],
-    },
   },
+  ignoreNoDocuments: true,
 };
 
 export default config;

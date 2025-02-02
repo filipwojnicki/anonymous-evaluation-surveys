@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom/client';
 import { ApolloProvider } from '@apollo/client';
 import App from './app/app';
 import client from './lib/client';
+import { ConfirmationProvider } from './app/components/ConfirmationDialog';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ root.render(
   <StrictMode>
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <App />
+        <ConfirmationProvider>
+          <App />
+        </ConfirmationProvider>
       </BrowserRouter>
     </ApolloProvider>
   </StrictMode>

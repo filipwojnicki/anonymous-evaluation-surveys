@@ -10,7 +10,7 @@ export const Dashboard = () => {
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Create Survey Card */}
-          <Link to="/dashboard/create-survey">
+          <Link to="/dashboard/survey/create">
             <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition">
               <PlusCircle className="w-12 h-12 text-blue-500 mb-4" />
               <h2 className="text-xl font-semibold text-gray-700">
@@ -23,7 +23,7 @@ export const Dashboard = () => {
           </Link>
 
           {/* View All Surveys */}
-          <Link to="/dashboard/all-surveys">
+          <Link to="/dashboard/survey/view-all">
             <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition">
               <ClipboardList className="w-12 h-12 text-green-500 mb-4" />
               <h2 className="text-xl font-semibold text-gray-700">

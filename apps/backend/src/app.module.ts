@@ -27,6 +27,7 @@ import { AppResolver } from './app/app.resolver';
           database: Joi.string(),
         },
         JWT_SECRET: Joi.string(),
+        ANONYMOUS_ID_SECRET: Joi.string(),
       }),
       validationOptions: {
         allowUnknown: true,

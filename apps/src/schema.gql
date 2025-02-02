@@ -2,9 +2,42 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AnswerInput {
+  answer: String!
+  questionId: String!
+}
+
+type AnswerOptionDto {
+  id: String!
+  questionId: String!
+  text: String!
+}
+
+input AnswerOptionInput {
+  text: String!
+}
+
 type AuthResponse {
   accessToken: String!
 }
+
+input CreateQuestionInput {
+  answerOptions: [AnswerOptionInput!]
+  surveyId: String!
+  text: String!
+  type: QuestionType!
+}
+
+input CreateSurveyDto {
+  description: String
+  title: String!
+  tokenCount: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 input LoginInput {
   email: String!
@@ -12,15 +45,75 @@ input LoginInput {
 }
 
 type Mutation {
+  createQuestion(data: CreateQuestionInput!): Boolean!
+  createSurvey(data: CreateSurveyDto!): SurveyDto!
+  deleteQuestion(questionId: String!, surveyId: String!): Boolean!
+  deleteSurvey(id: String!): Boolean!
   login(input: LoginInput!): AuthResponse!
   register(input: RegisterInput!): AuthResponse!
+  submitResponse(data: SubmitSurveyResponseInput!): Boolean!
+  updateQuestion(data: UpdateQuestionInput!, questionId: String!, surveyId: String!): Boolean!
+  updateSurvey(data: UpdateSurveyDto!, id: String!): SurveyDto!
 }
 
 type Query {
+  getQuestion(questionId: String!, surveyId: String!): QuestionDto!
+  getQuestions(surveyId: String!): [QuestionDto!]!
+  getSurvey(id: String!): SurveyDto!
+  getSurveyByToken(token: String!): SurveyDto!
+  getSurveyTokens(surveyId: String!): [TokenDto!]!
+  getSurveysByUser: [SurveyDto!]!
   hello: String!
+}
+
+type QuestionDto {
+  answerOptions: [AnswerOptionDto!]
+  id: String!
+  surveyId: String!
+  text: String!
+  type: String!
+}
+
+"""The type of question"""
+enum QuestionType {
+  MULTIPLE_CHOICE
+  SINGLE_CHOICE
+  TEXT
 }
 
 input RegisterInput {
   email: String!
   password: String!
+}
+
+input SubmitSurveyResponseInput {
+  answers: [AnswerInput!]!
+  token: String!
+}
+
+type SurveyDto {
+  createdAt: DateTime!
+  creatorId: String!
+  description: String
+  id: String!
+  questions: [QuestionDto!]
+  title: String!
+  updatedAt: DateTime!
+}
+
+type TokenDto {
+  id: String!
+  surveyId: String!
+  token: String!
+}
+
+input UpdateQuestionInput {
+  answerOptions: [AnswerOptionInput!]
+  text: String
+  type: QuestionType
+}
+
+input UpdateSurveyDto {
+  description: String
+  title: String!
 }

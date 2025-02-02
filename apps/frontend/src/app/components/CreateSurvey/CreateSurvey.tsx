@@ -1,6 +1,38 @@
+import { useState } from 'react';
 import { Header } from '../Header';
+import { useMutation } from '@apollo/client';
+import { CREATE_SURVEY } from '../../../api/gql/mutations/createSurvey';
+import { useNavigate } from 'react-router-dom';
+import { Info } from 'lucide-react';
 
 export const CreateSurvey = () => {
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [tokenCount, setTokenCount] = useState(1);
+  const [createSurvey, { loading, error }] = useMutation(CREATE_SURVEY);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { data } = await createSurvey({
+        variables: {
+          data: {
+            title,
+            description,
+            tokenCount,
+          },
+        },
+      });
+
+      if (data?.createSurvey?.id) {
+        navigate(`/dashboard/survey/${data.createSurvey.id}/details`);
+      }
+    } catch (err) {
+      console.error('Error creating survey:', err);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <Header />
@@ -9,7 +41,20 @@ export const CreateSurvey = () => {
           <h2 className="text-2xl font-bold text-gray-700 mb-6">
             Create a New Survey
           </h2>
-          <form className="space-y-4">
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 max-w-3xl mx-auto">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <Info className="h-5 w-5 text-blue-400" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-blue-700">
+                  Tokens represent anonymous users who can access and complete
+                  your survey. Each token allows one unique response per survey.
+                </p>
+              </div>
+            </div>
+          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-gray-600 font-medium">
                 Survey Title
@@ -18,6 +63,10 @@ export const CreateSurvey = () => {
                 type="text"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 placeholder="Enter survey title"
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                minLength={3}
+                maxLength={100}
               />
             </div>
             <div>
@@ -27,15 +76,33 @@ export const CreateSurvey = () => {
               <textarea
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 placeholder="Enter survey description"
+                onChange={(e) => setDescription(e.target.value)}
                 rows={4}
               ></textarea>
             </div>
+            <div>
+              <label className="block text-gray-600 font-medium">
+                Number of Tokens
+              </label>
+              <input
+                type="number"
+                value={tokenCount}
+                onChange={(e) => setTokenCount(parseInt(e.target.value))}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                min={1}
+                required
+              />
+            </div>
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition"
             >
-              Create Survey
+              {loading ? 'Creating...' : 'Create Survey'}
             </button>
+            {error && (
+              <p className="mt-4 text-red-600 text-sm">{error.message}</p>
+            )}
           </form>
         </div>
       </div>

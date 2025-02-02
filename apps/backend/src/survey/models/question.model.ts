@@ -10,6 +10,8 @@ import {
   HasMany,
 } from 'sequelize-typescript';
 import { AnswerOption, Survey } from '.';
+import { QuestionType } from '../types/question-type.enum';
+import { registerEnumType } from '@nestjs/graphql';
 
 @Table({
   timestamps: true,
@@ -37,10 +39,10 @@ export class Question extends Model {
   text!: string;
 
   @Column({
-    type: DataType.ENUM('text', 'single-choice', 'multiple-choice'),
+    type: DataType.ENUM(...Object.values(QuestionType)),
     allowNull: false,
   })
-  type!: string;
+  type!: QuestionType;
 
   @CreatedAt
   public override createdAt!: Date;
@@ -53,3 +55,8 @@ export class Question extends Model {
   @HasMany(() => AnswerOption)
   answerOptions!: AnswerOption[];
 }
+
+registerEnumType(QuestionType, {
+  name: 'QuestionType',
+  description: 'The type of question',
+});

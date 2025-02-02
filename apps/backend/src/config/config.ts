@@ -8,5 +8,6 @@ export default (): Record<string, unknown> => ({
     database: process.env.DB_NAME,
   },
   JWT_SECRET: process.env.JWT_SECRET,
+  ANONYMOUS_ID_SECRET: process.env.ANONYMOUS_ID_SECRET,
   NODE_ENV: process.env.NODE_ENV,
 });

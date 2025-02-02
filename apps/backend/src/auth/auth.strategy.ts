@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import type { User } from '../user/models';
 
 export type Payload = {
-  userId: string;
-  role: string;
+  userId: User['id'];
+  role: User['role'];
 };
 
 @Injectable()
