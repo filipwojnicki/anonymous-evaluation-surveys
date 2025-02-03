@@ -126,6 +126,7 @@ export type MutationUpdateSurveyArgs = {
 export type Query = {
   getQuestion: QuestionDto;
   getQuestions: Array<QuestionDto>;
+  getRandomUnusedToken: TokenDto;
   getSurvey: SurveyDto;
   getSurveyAnalyticsDetails: SurveyAnalyticsDetailsDto;
   getSurveyByToken: SurveyDto;
@@ -143,6 +144,11 @@ export type QueryGetQuestionArgs = {
 
 
 export type QueryGetQuestionsArgs = {
+  surveyId: Scalars['String']['input'];
+};
+
+
+export type QueryGetRandomUnusedTokenArgs = {
   surveyId: Scalars['String']['input'];
 };
 

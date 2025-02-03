@@ -11,6 +11,8 @@ import { CreateSurveyDto } from '../dto/create-survey.dto';
 import { User } from '../../user/models';
 import { UpdateSurveyDto } from '../dto/update-survey.dto';
 import { SurveyAnalyticsDto } from '../dto/survey-analytics.dto';
+import { Transaction } from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class SurveyService {
@@ -22,7 +24,8 @@ export class SurveyService {
     @InjectModel(Token)
     private tokenModel: typeof Token,
     @InjectModel(Response)
-    private responseModel: typeof Response
+    private responseModel: typeof Response,
+    private sequelize: Sequelize
   ) {}
 
   async createSurvey(data: CreateSurveyDto, userId: User['id']) {
@@ -82,6 +85,30 @@ export class SurveyService {
         };
       })
     ) as Promise<SurveyAnalyticsDto[]>;
+  }
+
+  async getRandomUnusedToken(surveyId: Survey['id']) {
+    const result = await this.sequelize.transaction(async (t: Transaction) => {
+      const token = await this.tokenModel.findOne({
+        where: {
+          surveyId,
+          isUsed: false,
+        },
+        order: this.sequelize.random(),
+        limit: 1,
+        lock: Transaction.LOCK.UPDATE,
+        skipLocked: true,
+        transaction: t,
+      });
+
+      if (!token) {
+        throw new NotFoundException('No unused tokens');
+      }
+
+      return token;
+    });
+
+    return result;
   }
 
   async getSurvey(surveyId: Survey['id'], userId: User['id']) {

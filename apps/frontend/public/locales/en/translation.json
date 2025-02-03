@@ -238,12 +238,15 @@
     "loading": "Loading tokens...",
     "title": "Available Tokens (Unused)",
     "empty": "No tokens available",
+    "surveyUrl": "Link to automatically assign a random token to a respondent",
     "actions": {
       "shuffle": "Shuffle Tokens",
       "copy": "Copy All",
       "copied": "Copied!",
       "copyTooltip": "Copy to clipboard",
-      "download": "Download Tokens"
+      "download": "Download Tokens",
+      "copyUrl": "Copy URL",
+      "urlCopied": "URL Copied!"
     },
     "tokensAvailable": "{{count}} tokens available",
     "info": "These tokens can be used to submit survey responses anonymously. Each token can be used only once.",
@@ -335,5 +338,9 @@
         "percentage": "{{value}}%"
       }
     }
+  },
+  "redirect": {
+    "loading": "Getting survey token...",
+    "error": "Failed to get survey token. Please try again."
   }
 }

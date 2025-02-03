@@ -238,12 +238,15 @@
     "loading": "Ładowanie tokenów...",
     "title": "Dostępne Tokeny (Nieużywane)",
     "empty": "Brak dostępnych tokenów",
+    "surveyUrl": "Link do automatycznego przydzielania losowego tokena dla respondenta",
     "actions": {
       "shuffle": "Tasuj Tokeny",
       "copy": "Kopiuj Wszystko",
       "copied": "Skopiowano!",
       "copyTooltip": "Kopiuj do schowka",
-      "download": "Pobierz Tokeny"
+      "download": "Pobierz Tokeny",
+      "copyUrl": "Kopiuj URL",
+      "urlCopied": "URL Skopiowany!"
     },
     "tokensAvailable": "{{count}} dostępnych tokenów",
     "info": "Te tokeny mogą być użyte do anonimowego wypełnienia ankiety. Każdy token może być użyty tylko raz.",
@@ -335,5 +338,9 @@
         "percentage": "{{value}}%"
       }
     }
+  },
+  "redirect": {
+    "loading": "Pobieranie tokenu ankiety...",
+    "error": "Nie udało się pobrać tokenu ankiety. Spróbuj ponownie."
   }
 }

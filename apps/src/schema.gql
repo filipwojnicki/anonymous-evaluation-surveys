@@ -65,6 +65,7 @@ type Mutation {
 type Query {
   getQuestion(questionId: String!, surveyId: String!): QuestionDto!
   getQuestions(surveyId: String!): [QuestionDto!]!
+  getRandomUnusedToken(surveyId: String!): TokenDto!
   getSurvey(id: String!): SurveyDto!
   getSurveyAnalyticsDetails(surveyId: String!): SurveyAnalyticsDetailsDto!
   getSurveyByToken(token: String!): SurveyDto!

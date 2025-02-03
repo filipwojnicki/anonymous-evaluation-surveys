@@ -11,6 +11,7 @@ type TokensListProps = {
 
 export const TokensList = ({ surveyId }: TokensListProps) => {
   const [copied, setCopied] = useState(false);
+  const [urlCopied, setUrlCopied] = useState(false);
   const { t } = useTranslation();
   const [shuffledTokens, setShuffledTokens] = useState<TokenDto[]>([]);
   const { data, loading } = useQuery(GET_SURVEY_TOKENS, {
@@ -18,6 +19,8 @@ export const TokensList = ({ surveyId }: TokensListProps) => {
     skip: !surveyId,
     fetchPolicy: 'cache-and-network',
   });
+
+  const surveyUrl = `${window.location.origin}/survey/assign-token/${surveyId}`;
 
   const handleShuffle = () => {
     const shuffled = [...(data?.getSurveyTokens || [])].sort(
@@ -40,8 +43,40 @@ export const TokensList = ({ surveyId }: TokensListProps) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleCopyUrl = async () => {
+    await navigator.clipboard.writeText(surveyUrl);
+    setUrlCopied(true);
+    setTimeout(() => setUrlCopied(false), 2000);
+  };
+
   return (
     <div className="space-y-2">
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-gray-700">
+          {t('tokenList.surveyUrl')}
+        </label>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={surveyUrl}
+            readOnly
+            className="flex-1 p-2 text-sm bg-gray-50 border rounded-md font-mono"
+          />
+          <button
+            onClick={handleCopyUrl}
+            className="flex items-center gap-1 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors border rounded-md"
+          >
+            {urlCopied ? (
+              <Check className="h-4 w-4 text-green-600" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+            {urlCopied
+              ? t('tokenList.actions.urlCopied')
+              : t('tokenList.actions.copyUrl')}
+          </button>
+        </div>
+      </div>
       <div className="flex justify-between items-center">
         <label className="text-sm font-medium text-gray-700">
           {t('tokenList.title')}
@@ -72,7 +107,9 @@ export const TokensList = ({ surveyId }: TokensListProps) => {
       <div className="relative">
         <textarea
           className="w-full h-32 p-2 text-sm bg-gray-50 border rounded-md font-mono"
-          value={tokens.map((t) => t.token).join('\n')}
+          value={tokens
+            .map((t) => `${window.location.origin}/survey/${t.token}`)
+            .join('\n')}
           readOnly
         />
         <div className="absolute bottom-2 right-2 text-xs text-gray-500">

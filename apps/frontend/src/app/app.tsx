@@ -13,6 +13,7 @@ import { EditQuestion } from './components/EditQuestion';
 import { Survey } from './components/Survey';
 import { ThankYou } from './components/ThankYou';
 import { SurveyAnalyticsDetails } from './components/SurveyAnalyticsDetails';
+import { RedirectWithToken } from './components/RedirectWithToken';
 
 export function App() {
   return (
@@ -25,6 +26,10 @@ export function App() {
 
         {/* SURVEY FOR RESPONDENT */}
         <Route path="/survey/thank-you" element={<ThankYou />} />
+        <Route
+          path="/survey/assign-token/:surveyId"
+          element={<RedirectWithToken />}
+        />
         <Route path="/survey/:token" element={<Survey />} />
 
         {/* SURVEY MANAGMENT */}

@@ -64,6 +64,19 @@ export class SurveyResolver {
     return await this.surveyService.findByToken(token);
   }
 
+  @UseGuards(GqlAuthGuard)
+  @Query(() => TokenDto)
+  async getRandomUnusedToken(
+    @Args('surveyId') surveyId: string,
+    @CurrentUser() user: Payload
+  ) {
+    const survey = await this.surveyService.getSurvey(surveyId, user.userId);
+    if (survey.creatorId !== user.userId) {
+      throw new ForbiddenException('Not authorized to view these tokens');
+    }
+    return await this.surveyService.getRandomUnusedToken(surveyId);
+  }
+
   @Query(() => [SurveyAnalyticsDto])
   @UseGuards(GqlAuthGuard)
   async getSurveysAnalytics(@CurrentUser() user: Payload) {
