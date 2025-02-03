@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useConfirmation } from '../ConfirmationDialog';
 import { DELETE_QUESTION } from '../../../api/gql/mutations';
+import { useTranslation } from 'react-i18next';
 
 type QuestionsListProps = {
   surveyId: string;
 };
 
 export const QuestionsList = ({ surveyId }: QuestionsListProps) => {
+  const { t } = useTranslation();
   const { confirm } = useConfirmation();
   const { data, loading } = useQuery(GET_QUESTIONS, {
     variables: { surveyId },
@@ -33,8 +35,8 @@ export const QuestionsList = ({ surveyId }: QuestionsListProps) => {
     const question = data?.getQuestions.find((q) => q.id === questionId);
 
     const confirmed = await confirm(
-      `Delete Question - ${question?.text}`,
-      'Are you sure you want to delete this question? This action cannot be undone.'
+      `${t('questionsList.delete.title')} - ${question?.text}`,
+      t('questionsList.delete.message')
     );
 
     if (confirmed) {
@@ -51,12 +53,12 @@ export const QuestionsList = ({ surveyId }: QuestionsListProps) => {
   return (
     <div className="border-t pt-8">
       <div className="flex justify-between items-center mb-6">
-        <p className="text-gray-600 font-medium">Questions</p>
+        <p className="text-gray-600 font-medium">{t('questionsList.title')}</p>
         <Link
           to={`/dashboard/survey/${surveyId}/question/create`}
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
         >
-          Add Question
+          {t('questionsList.addQuestion')}
         </Link>
       </div>
 
@@ -70,7 +72,7 @@ export const QuestionsList = ({ surveyId }: QuestionsListProps) => {
               <div>
                 <p className="font-medium">{question.text}</p>
                 <p className="text-sm text-gray-500 mt-1">
-                  Type: {question.type}
+                  {t('questionsList.questionType')}: {question.type}
                 </p>
               </div>
               <div className="flex items-center gap-2">

@@ -2,8 +2,10 @@ import { useQuery } from '@apollo/client';
 import { Header } from '../Header';
 import { GET_SURVEYS_ANALYTICS } from '../../../api/gql/queries';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const SurveyAnalytics = () => {
+  const { t } = useTranslation();
   const { data, loading, error } = useQuery(GET_SURVEYS_ANALYTICS, {
     pollInterval: 30000,
   });
@@ -33,7 +35,7 @@ export const SurveyAnalytics = () => {
         <Header />
         <div className="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-lg">
           <div className="text-red-500">
-            Error loading analytics: {error.message}
+            {t('surveyAnalytics.errors.loading', { message: error.message })}
           </div>
         </div>
       </div>
@@ -45,7 +47,7 @@ export const SurveyAnalytics = () => {
       <Header />
       <div className="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-lg">
         <h2 className="text-2xl font-bold text-gray-700 mb-6">
-          Survey Analytics
+          {t('surveyAnalytics.title')}
         </h2>
         <div className="space-y-4">
           {data?.getSurveysAnalytics.map((survey) => (
@@ -58,9 +60,16 @@ export const SurveyAnalytics = () => {
                 <h3 className="text-xl font-semibold text-gray-800">
                   {survey.title}
                 </h3>
-                <p className="text-gray-600">Responses: {survey.responses}</p>
                 <p className="text-gray-600">
-                  Completion Rate: {survey.completionRate.toFixed(2)}%
+                  {' '}
+                  {t('surveyAnalytics.survey.responses', {
+                    count: survey.responses,
+                  })}
+                </p>
+                <p className="text-gray-600">
+                  {t('surveyAnalytics.survey.completionRate', {
+                    rate: survey.completionRate.toFixed(2),
+                  })}
                 </p>
                 <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
                   <div

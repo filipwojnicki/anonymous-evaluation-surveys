@@ -9,9 +9,11 @@ import {
 } from '../../../api/gql/__generated__/graphql';
 import { GET_QUESTION } from '../../../api/gql/queries';
 import { UPDATE_QUESTION } from '../../../api/gql/mutations';
+import { useTranslation } from 'react-i18next';
 
 export const EditQuestion = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { surveyId, questionId } = useParams<{
     surveyId: string;
     questionId: string;
@@ -131,25 +133,26 @@ export const EditQuestion = () => {
       <Header />
       <div className="flex flex-col items-center">
         <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
-          <h2 className="text-2xl font-bold mb-4">Edit Question</h2>
+          <h2 className="text-2xl font-bold mb-4">{t('editQuestion.title')}</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Question Text
+                {t('editQuestion.form.questionText')}
               </label>
               <input
                 type="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder={t('editQuestion.form.questionText')}
                 required
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Question Type
+                {t('editQuestion.form.questionType')}
               </label>
               <select
                 value={type}
@@ -174,7 +177,9 @@ export const EditQuestion = () => {
                     type="text"
                     value={newOptionText}
                     onChange={(e) => setNewOptionText(e.target.value)}
-                    placeholder="Enter answer option"
+                    placeholder={t(
+                      'editQuestion.form.answerOptions.placeholder'
+                    )}
                     className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
                   <button
@@ -211,7 +216,9 @@ export const EditQuestion = () => {
               disabled={mutationLoading}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
             >
-              {mutationLoading ? 'Saving...' : 'Save Changes'}
+              {mutationLoading
+                ? t('editQuestion.form.submit.loading')
+                : t('editQuestion.form.submit.default')}
             </button>
           </form>
         </div>

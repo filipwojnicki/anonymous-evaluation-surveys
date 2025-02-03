@@ -1,0 +1,339 @@
+{
+  "dashboard": {
+    "createSurvey": {
+      "title": "Utwórz nową ankietę",
+      "description": "Rozpocznij nową ankietę dla respondentów."
+    },
+    "allSurveys": {
+      "title": "Wszystkie ankiety",
+      "description": "Zarządzaj i edytuj istniejące ankiety."
+    },
+    "analytics": {
+      "title": "Analiza ankiet",
+      "description": "Zobacz odpowiedzi i statystyki."
+    }
+  },
+  "common": {
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "confirm": "Potwierdź"
+  },
+  "questions": {
+    "create": {
+      "title": "Utwórz Pytanie",
+      "questionText": "Treść Pytania",
+      "questionType": "Typ Pytania",
+      "types": {
+        "text": "Tekstowe",
+        "singleChoice": "Jednokrotny Wybór",
+        "multipleChoice": "Wielokrotny Wybór"
+      },
+      "answerOptions": "Opcje Odpowiedzi",
+      "addOption": "Dodaj Opcję",
+      "optionPlaceholder": "Wprowadź tekst opcji",
+      "submit": "Utwórz Pytanie",
+      "cancel": "Anuluj",
+      "submitting": "Tworzenie..."
+    }
+  },
+  "createSurvey": {
+    "title": "Utwórz Nową Ankietę",
+    "form": {
+      "surveyTitle": "Tytuł Ankiety",
+      "titlePlaceholder": "Wprowadź tytuł ankiety",
+      "description": "Opis",
+      "descriptionPlaceholder": "Wprowadź opis ankiety (opcjonalnie)",
+      "tokenCount": "Liczba Tokenów",
+      "tokenPlaceholder": "Wprowadź liczbę tokenów",
+      "tokenInfo": "Tokeny reprezentują anonimowych użytkowników, którzy mogą uzyskać dostęp i wypełnić Twoją ankietę. Każdy token umożliwia jedną unikalną odpowiedź na ankietę.",
+      "submit": {
+        "default": "Utwórz Ankietę",
+        "loading": "Tworzenie..."
+      }
+    },
+    "validation": {
+      "required": "To pole jest wymagane",
+      "minTokens": "Wymagany minimum 1 token",
+      "titleRequired": "Tytuł ankiety jest wymagany",
+      "tokenRequired": "Liczba tokenów jest wymagana"
+    },
+    "errorMessages": {
+      "generic": "Coś poszło nie tak. Spróbuj ponownie.",
+      "networkError": "Błąd sieci. Sprawdź swoje połączenie.",
+      "invalidInput": "Sprawdź wprowadzone dane i spróbuj ponownie."
+    },
+    "success": {
+      "created": "Ankieta została utworzona pomyślnie!",
+      "redirect": "Przekierowanie do szczegółów ankiety..."
+    }
+  },
+  "editQuestion": {
+    "title": "Edytuj Pytanie",
+    "form": {
+      "questionText": "Treść Pytania",
+      "questionType": "Typ Pytania",
+      "types": {
+        "text": "Tekstowe",
+        "singleChoice": "Jednokrotny Wybór",
+        "multipleChoice": "Wielokrotny Wybór"
+      },
+      "answerOptions": {
+        "title": "Opcje Odpowiedzi",
+        "addNew": "Dodaj Nową Opcję",
+        "placeholder": "Wprowadź tekst opcji",
+        "addButton": "Dodaj Opcję",
+        "removeOption": "Usuń Opcję"
+      },
+      "submit": {
+        "loading": "Zapisywanie zmian...",
+        "default": "Zapisz Zmiany"
+      },
+      "cancel": "Anuluj"
+    },
+    "validation": {
+      "required": "To pole jest wymagane",
+      "questionTextRequired": "Treść pytania jest wymagana",
+      "optionRequired": "Wymagana jest co najmniej jedna opcja",
+      "duplicateOption": "Ta opcja już istnieje"
+    },
+    "loading": {
+      "question": "Ładowanie pytania...",
+      "saving": "Zapisywanie zmian..."
+    },
+    "errors": {
+      "loadFailed": "Nie udało się załadować pytania",
+      "saveFailed": "Nie udało się zapisać zmian",
+      "generic": "Coś poszło nie tak. Spróbuj ponownie."
+    },
+    "success": {
+      "saved": "Pytanie zostało zaktualizowane pomyślnie",
+      "redirect": "Przekierowywanie do szczegółów ankiety..."
+    }
+  },
+  "editSurvey": {
+    "title": "Edytuj Ankietę",
+    "form": {
+      "surveyTitle": "Tytuł Ankiety",
+      "titlePlaceholder": "Wprowadź tytuł ankiety",
+      "description": "Opis",
+      "descriptionPlaceholder": "Wprowadź opis ankiety (opcjonalnie)",
+      "submit": {
+        "loading": "Zapisywanie zmian...",
+        "default": "Zapisz Zmiany"
+      },
+      "cancel": "Anuluj"
+    },
+    "validation": {
+      "titleRequired": "Tytuł ankiety jest wymagany",
+      "minLength": "Tytuł musi mieć co najmniej 3 znaki"
+    },
+    "loading": "Ładowanie ankiety...",
+    "errors": {
+      "loadFailed": "Nie udało się załadować ankiety",
+      "saveFailed": "Nie udało się zapisać zmian",
+      "generic": "Coś poszło nie tak. Spróbuj ponownie."
+    },
+    "success": {
+      "saved": "Ankieta została zaktualizowana pomyślnie",
+      "redirect": "Przekierowywanie do listy ankiet..."
+    }
+  },
+  "header": {
+    "dashboard": {
+      "title": "Panel Tworzenia Ankiet"
+    }
+  },
+  "login": {
+    "title": "Logowanie do Kreatora Ankiet",
+    "form": {
+      "email": "Adres Email",
+      "emailPlaceholder": "Wprowadź swój adres email",
+      "password": "Hasło",
+      "passwordPlaceholder": "Wprowadź swoje hasło",
+      "submit": {
+        "default": "Zaloguj się",
+        "loading": "Logowanie..."
+      },
+      "registerPrompt": "Nie masz konta?",
+      "registerLink": "Zarejestruj się tutaj",
+      "forgotPassword": "Zapomniałeś hasła?"
+    },
+    "validation": {
+      "emailRequired": "Email jest wymagany",
+      "emailInvalid": "Wprowadź poprawny adres email",
+      "passwordRequired": "Hasło jest wymagane",
+      "passwordMinLength": "Hasło musi mieć co najmniej 6 znaków"
+    },
+    "errors": {
+      "invalidCredentials": "Nieprawidłowy email lub hasło",
+      "generic": "Coś poszło nie tak. Spróbuj ponownie.",
+      "networkError": "Błąd sieci. Sprawdź swoje połączenie.",
+      "tooManyAttempts": "Zbyt wiele prób logowania. Spróbuj ponownie później."
+    }
+  },
+  "logout": {
+    "button": "Wyloguj się"
+  },
+  "questionsList": {
+    "title": "Pytania",
+    "addQuestion": "Dodaj Pytanie",
+    "empty": "Brak dodanych pytań",
+    "loading": "Ładowanie pytań...",
+    "questionType": "Typ",
+    "types": {
+      "text": "Tekstowe",
+      "singleChoice": "Jednokrotny Wybór",
+      "multipleChoice": "Wielokrotny Wybór"
+    },
+    "actions": {
+      "edit": "Edytuj pytanie",
+      "delete": "Usuń pytanie"
+    },
+    "delete": {
+      "title": "Usuń Pytanie",
+      "message": "Czy na pewno chcesz usunąć to pytanie? Tej akcji nie można cofnąć.",
+      "confirm": "Usuń",
+      "cancel": "Anuluj",
+      "success": "Pytanie zostało usunięte",
+      "error": "Nie udało się usunąć pytania"
+    }
+  },
+  "register": {
+    "title": "Rejestracja",
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "Wprowadź swój email",
+      "password": "Hasło",
+      "passwordPlaceholder": "Wprowadź hasło",
+      "submit": {
+        "default": "Zarejestruj się",
+        "loading": "Rejestracja..."
+      }
+    },
+    "loginPrompt": "Masz już konto?",
+    "loginLink": "Zaloguj się",
+    "errors": {
+      "generic": "Coś poszło nie tak. Spróbuj ponownie.",
+      "emailInUse": "Ten email jest już używany",
+      "invalidEmail": "Wprowadź poprawny adres email",
+      "weakPassword": "Hasło jest zbyt słabe"
+    }
+  },
+  "surveyAnalytics": {
+    "title": "Analiza Ankiet",
+    "errors": {
+      "loading": "Błąd ładowania analityki: {{message}}"
+    },
+    "survey": {
+      "responses": "Odpowiedzi: {{count}}",
+      "completionRate": "Stopień ukończenia: {{rate}}%"
+    }
+  },
+  "thankYou": {
+    "title": "Dziękujemy!",
+    "message": "Twoja odpowiedź została pomyślnie przesłana. Dziękujemy za opinię!",
+    "status": "Odpowiedź Zapisana ✓"
+  },
+  "tokenList": {
+    "loading": "Ładowanie tokenów...",
+    "title": "Dostępne Tokeny (Nieużywane)",
+    "empty": "Brak dostępnych tokenów",
+    "actions": {
+      "shuffle": "Tasuj Tokeny",
+      "copy": "Kopiuj Wszystko",
+      "copied": "Skopiowano!",
+      "copyTooltip": "Kopiuj do schowka",
+      "download": "Pobierz Tokeny"
+    },
+    "tokensAvailable": "{{count}} dostępnych tokenów",
+    "info": "Te tokeny mogą być użyte do anonimowego wypełnienia ankiety. Każdy token może być użyty tylko raz.",
+    "errors": {
+      "loadFailed": "Nie udało się załadować tokenów",
+      "copyFailed": "Nie udało się skopiować tokenów",
+      "downloadFailed": "Nie udało się pobrać tokenów"
+    },
+    "textarea": {
+      "placeholder": "Tokeny pojawią się tutaj",
+      "label": "Lista tokenów",
+      "copyInstructions": "Kliknij 'Kopiuj Wszystko' aby skopiować tokeny"
+    }
+  },
+  "viewAllSurveys": {
+    "title": "Wszystkie Ankiety",
+    "loading": "Ładowanie ankiet...",
+    "empty": "Brak ankiet",
+    "table": {
+      "refresh": "Odśwież Listę",
+      "headers": {
+        "title": "Tytuł Ankiety",
+        "dateCreated": "Data Utworzenia",
+        "actions": "Akcje"
+      },
+      "actions": {
+        "edit": "Edytuj",
+        "delete": "Usuń",
+        "viewResponses": "Zobacz Odpowiedzi",
+        "viewAnalytics": "Analityka"
+      }
+    },
+    "actions": {
+      "createNew": "Utwórz Nową Ankietę"
+    },
+    "delete": {
+      "title": "Usuń Ankietę",
+      "message": "Czy na pewno chcesz usunąć tę ankietę? Wszystkie odpowiedzi zostaną trwale usunięte.",
+      "confirm": "Tak, usuń",
+      "cancel": "Anuluj",
+      "success": "Ankieta została usunięta",
+      "error": "Nie udało się usunąć ankiety"
+    },
+    "errors": {
+      "loading": "Błąd ładowania ankiet",
+      "generic": "Coś poszło nie tak. Spróbuj ponownie."
+    }
+  },
+  "surveyAnalyticsDetails": {
+    "navigation": {
+      "backToSurveys": "Powrót do Ankiet"
+    },
+    "loading": "Ładowanie analityki ankiety...",
+    "errors": {
+      "loading": "Błąd ładowania analityki: {{message}}",
+      "notFound": "Nie znaleziono ankiety"
+    },
+    "metrics": {
+      "totalResponses": {
+        "title": "Wszystkie Odpowiedzi",
+        "value": "{{count}}"
+      },
+      "completionRate": {
+        "title": "Współczynnik Ukończenia",
+        "value": "{{rate}}%"
+      }
+    },
+    "questions": {
+      "title": "Pytanie {{number}}: {{text}}",
+      "types": {
+        "singleChoice": {
+          "responses": "{{count}} odpowiedzi",
+          "percentage": "{{value}}%"
+        },
+        "multipleChoice": {
+          "selections": "{{count}} wyborów",
+          "percentage": "{{value}}%"
+        },
+        "text": {
+          "totalResponses": "Wszystkie odpowiedzi tekstowe: {{count}}",
+          "mostCommonWords": "Najczęściej Występujące Słowa",
+          "occurrences": "{{count}} wystąpień ({{percentage}}%)"
+        }
+      }
+    },
+    "chart": {
+      "tooltip": {
+        "responses": "Odpowiedzi: {{count}}",
+        "percentage": "{{value}}%"
+      }
+    }
+  }
+}

@@ -1,8 +1,11 @@
 import { PlusCircle, ClipboardList, BarChart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Header } from '../Header';
+import { useTranslation } from 'react-i18next';
 
 export const Dashboard = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <Header />
@@ -14,10 +17,10 @@ export const Dashboard = () => {
             <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition">
               <PlusCircle className="w-12 h-12 text-blue-500 mb-4" />
               <h2 className="text-xl font-semibold text-gray-700">
-                Create New Survey
+                {t('dashboard.createSurvey.title')}
               </h2>
               <p className="text-gray-500 text-center mt-2">
-                Start a new survey for respondents.
+                {t('dashboard.createSurvey.description')}
               </p>
             </div>
           </Link>
@@ -27,10 +30,10 @@ export const Dashboard = () => {
             <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition">
               <ClipboardList className="w-12 h-12 text-green-500 mb-4" />
               <h2 className="text-xl font-semibold text-gray-700">
-                All Surveys
+                {t('dashboard.allSurveys.title')}
               </h2>
               <p className="text-gray-500 text-center mt-2">
-                Manage and edit your existing surveys.
+                {t('dashboard.allSurveys.description')}
               </p>
             </div>
           </Link>
@@ -40,10 +43,10 @@ export const Dashboard = () => {
             <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center justify-center cursor-pointer hover:shadow-lg transition">
               <BarChart className="w-12 h-12 text-purple-500 mb-4" />
               <h2 className="text-xl font-semibold text-gray-700">
-                Survey Analytics
+                {t('dashboard.analytics.title')}
               </h2>
               <p className="text-gray-500 text-center mt-2">
-                View responses and survey statistics.
+                {t('dashboard.analytics.description')}
               </p>
             </div>
           </Link>

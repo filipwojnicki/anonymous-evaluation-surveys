@@ -3,6 +3,7 @@ import { Copy, Check, Shuffle } from 'lucide-react';
 import { useState } from 'react';
 import { GET_SURVEY_TOKENS } from '../../../api/gql/queries';
 import { TokenDto } from '../../../api/gql/__generated__/graphql';
+import { useTranslation } from 'react-i18next';
 
 type TokensListProps = {
   surveyId: string;
@@ -10,6 +11,7 @@ type TokensListProps = {
 
 export const TokensList = ({ surveyId }: TokensListProps) => {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
   const [shuffledTokens, setShuffledTokens] = useState<TokenDto[]>([]);
   const { data, loading } = useQuery(GET_SURVEY_TOKENS, {
     variables: { surveyId },
@@ -42,7 +44,7 @@ export const TokensList = ({ surveyId }: TokensListProps) => {
     <div className="space-y-2">
       <div className="flex justify-between items-center">
         <label className="text-sm font-medium text-gray-700">
-          Available Tokens (Unused)
+          {t('tokenList.title')}
         </label>
         <div className="flex items-center gap-2">
           <button
@@ -50,7 +52,7 @@ export const TokensList = ({ surveyId }: TokensListProps) => {
             className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 transition-colors"
           >
             <Shuffle className="h-4 w-4" />
-            Shuffle
+            {t('tokenList.actions.shuffle')}
           </button>
           <button
             onClick={handleCopyAll}
@@ -61,7 +63,9 @@ export const TokensList = ({ surveyId }: TokensListProps) => {
             ) : (
               <Copy className="h-4 w-4" />
             )}
-            {copied ? 'Copied!' : 'Copy All'}
+            {copied
+              ? t('tokenList.actions.copied')
+              : t('tokenList.actions.copy')}
           </button>
         </div>
       </div>
@@ -72,13 +76,10 @@ export const TokensList = ({ surveyId }: TokensListProps) => {
           readOnly
         />
         <div className="absolute bottom-2 right-2 text-xs text-gray-500">
-          {tokens.length} tokens available
+          {t('tokenList.tokensAvailable', { count: tokens.length })}
         </div>
       </div>
-      <p className="text-xs text-gray-500">
-        These tokens can be used to submit survey responses anonymously. Each
-        token can be used only once.
-      </p>
+      <p className="text-xs text-gray-500">{t('tokenList.info')}</p>
     </div>
   );
 };

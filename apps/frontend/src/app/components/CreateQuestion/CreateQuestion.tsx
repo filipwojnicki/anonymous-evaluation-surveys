@@ -9,10 +9,12 @@ import {
   QuestionType,
 } from '../../../api/gql/__generated__/graphql';
 import { Plus, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const CreateQuestion = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [text, setText] = useState<string>('');
   const [type, setType] = useState<QuestionType>(QuestionType.Text);
   const [answerOptions, setAnswerOptions] = useState<AnswerOptionInput[]>([]);
@@ -61,25 +63,28 @@ export const CreateQuestion = () => {
       <Header />
       <div className="flex flex-col items-center">
         <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
-          <h2 className="text-2xl font-bold mb-4">Create a New Question</h2>
+          <h2 className="text-2xl font-bold mb-4">
+            {t('questions.create.title')}
+          </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Question Text
+                {t('questions.create.questionText')}
               </label>
               <input
                 type="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder={t('questions.create.questionText')}
                 required
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Question Type
+                {t('questions.create.questionType')}
               </label>
               <select
                 value={type}
@@ -140,7 +145,9 @@ export const CreateQuestion = () => {
               disabled={loading}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50"
             >
-              {loading ? 'Creating...' : 'Create Question'}
+              {loading
+                ? t('questions.create.submitting')
+                : t('questions.create.submit')}
             </button>
           </form>
         </div>

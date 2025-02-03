@@ -6,9 +6,11 @@ import { GET_SURVEYS_BY_USER } from '../../../api/gql/queries';
 import { Header } from '../Header';
 import { DELETE_SURVEY } from '../../../api/gql/mutations';
 import { useConfirmation } from '../ConfirmationDialog';
+import { useTranslation } from 'react-i18next';
 
 export const ViewAllSurveys = () => {
   const { loading, error, data, refetch } = useQuery(GET_SURVEYS_BY_USER);
+  const { t } = useTranslation();
   const [deleteSurvey] = useMutation(DELETE_SURVEY, {
     refetchQueries: [{ query: GET_SURVEYS_BY_USER }],
   });
@@ -90,14 +92,18 @@ export const ViewAllSurveys = () => {
       <div className="max-w-5xl mx-auto">
         <div className="bg-white p-8 rounded-xl shadow-lg mb-6">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-700">Your Surveys</h2>
+            <h2 className="text-2xl font-bold text-gray-700">
+              {t('viewAllSurveys.title')}
+            </h2>
             <div className="flex items-center gap-4">
               <Link
                 to="/dashboard/survey/create"
                 className="p-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-200 flex items-center gap-2"
               >
                 <Plus className="h-5 w-5" />
-                <span className="text-sm font-medium">Create Survey</span>
+                <span className="text-sm font-medium">
+                  {t('viewAllSurveys.actions.createNew')}
+                </span>
               </Link>
               <button
                 onClick={() => refetch()}
@@ -107,7 +113,9 @@ export const ViewAllSurveys = () => {
                 <RefreshCw
                   className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`}
                 />
-                <span className="text-sm font-medium">Refresh</span>
+                <span className="text-sm font-medium">
+                  {t('viewAllSurveys.table.refresh')}
+                </span>
               </button>
             </div>
           </div>
@@ -115,10 +123,14 @@ export const ViewAllSurveys = () => {
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-50 text-gray-600 text-sm font-medium">
-                  <th className="py-4 px-6 text-left rounded-tl-lg">Title</th>
-                  <th className="py-4 px-6 text-left">Date Created</th>
+                  <th className="py-4 px-6 text-left rounded-tl-lg">
+                    {t('viewAllSurveys.table.headers.title')}
+                  </th>
+                  <th className="py-4 px-6 text-left">
+                    {t('viewAllSurveys.table.headers.dateCreated')}
+                  </th>
                   <th className="py-4 px-6 text-center rounded-tr-lg">
-                    Actions
+                    {t('viewAllSurveys.table.headers.actions')}
                   </th>
                 </tr>
               </thead>

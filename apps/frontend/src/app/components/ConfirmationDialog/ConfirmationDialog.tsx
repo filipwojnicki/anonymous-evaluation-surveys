@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 type ConfirmationDialogProps = {
   isOpen: boolean;
   title: string;
@@ -13,6 +15,8 @@ export const ConfirmationDialog = ({
   onConfirm,
   onCancel,
 }: ConfirmationDialogProps) => {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   return (
@@ -27,13 +31,13 @@ export const ConfirmationDialog = ({
               onClick={onCancel}
               className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               onClick={onConfirm}
               className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors"
             >
-              Delete
+              {t('common.delete')}
             </button>
           </div>
         </div>

@@ -1,0 +1,339 @@
+{
+  "dashboard": {
+    "createSurvey": {
+      "title": "Create New Survey",
+      "description": "Start a new survey for respondents."
+    },
+    "allSurveys": {
+      "title": "All Surveys",
+      "description": "Manage and edit your existing surveys."
+    },
+    "analytics": {
+      "title": "Survey Analytics",
+      "description": "View responses and statistics."
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm"
+  },
+  "questions": {
+    "create": {
+      "title": "Create Question",
+      "questionText": "Question Text",
+      "questionType": "Question Type",
+      "types": {
+        "text": "Text",
+        "singleChoice": "Single Choice",
+        "multipleChoice": "Multiple Choice"
+      },
+      "answerOptions": "Answer Options",
+      "addOption": "Add Option",
+      "optionPlaceholder": "Enter option text",
+      "submit": "Create Question",
+      "cancel": "Cancel",
+      "submitting": "Creating..."
+    }
+  },
+  "createSurvey": {
+    "title": "Create New Survey",
+    "form": {
+      "surveyTitle": "Survey Title",
+      "titlePlaceholder": "Enter survey title",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter survey description (optional)",
+      "tokenCount": "Number of Tokens",
+      "tokenPlaceholder": "Enter number of tokens",
+      "tokenInfo": "Tokens represent anonymous users who can access and complete your survey. Each token allows one unique response per survey.",
+      "submit": {
+        "default": "Create Survey",
+        "loading": "Creating..."
+      }
+    },
+    "validation": {
+      "required": "This field is required",
+      "minTokens": "Minimum 1 token required",
+      "titleRequired": "Survey title is required",
+      "tokenRequired": "Number of tokens is required"
+    },
+    "errorMessages": {
+      "generic": "Something went wrong. Please try again.",
+      "networkError": "Network error. Please check your connection.",
+      "invalidInput": "Please check your input and try again."
+    },
+    "success": {
+      "created": "Survey created successfully!",
+      "redirect": "Redirecting to survey details..."
+    }
+  },
+  "editQuestion": {
+    "title": "Edit Question",
+    "form": {
+      "questionText": "Question Text",
+      "questionType": "Question Type",
+      "types": {
+        "text": "Text",
+        "singleChoice": "Single Choice",
+        "multipleChoice": "Multiple Choice"
+      },
+      "answerOptions": {
+        "title": "Answer Options",
+        "addNew": "Add New Option",
+        "placeholder": "Enter option text",
+        "addButton": "Add Option",
+        "removeOption": "Remove Option"
+      },
+      "submit": {
+        "loading": "Saving changes...",
+        "default": "Save Changes"
+      },
+      "cancel": "Cancel"
+    },
+    "validation": {
+      "required": "This field is required",
+      "questionTextRequired": "Question text is required",
+      "optionRequired": "At least one option is required",
+      "duplicateOption": "This option already exists"
+    },
+    "loading": {
+      "question": "Loading question...",
+      "saving": "Saving changes..."
+    },
+    "errors": {
+      "loadFailed": "Failed to load question",
+      "saveFailed": "Failed to save changes",
+      "generic": "Something went wrong. Please try again."
+    },
+    "success": {
+      "saved": "Question updated successfully",
+      "redirect": "Redirecting to survey details..."
+    }
+  },
+  "editSurvey": {
+    "title": "Edit Survey",
+    "form": {
+      "surveyTitle": "Survey Title",
+      "titlePlaceholder": "Enter survey title",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter survey description (optional)",
+      "submit": {
+        "loading": "Saving changes...",
+        "default": "Save Changes"
+      },
+      "cancel": "Cancel"
+    },
+    "validation": {
+      "titleRequired": "Survey title is required",
+      "minLength": "Title must be at least 3 characters long"
+    },
+    "loading": "Loading survey...",
+    "errors": {
+      "loadFailed": "Failed to load survey",
+      "saveFailed": "Failed to save changes",
+      "generic": "Something went wrong. Please try again."
+    },
+    "success": {
+      "saved": "Survey updated successfully",
+      "redirect": "Redirecting to survey list..."
+    }
+  },
+  "header": {
+    "dashboard": {
+      "title": "Survey Creator Dashboard"
+    }
+  },
+  "login": {
+    "title": "Login to Survey Creator",
+    "form": {
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": {
+        "default": "Login",
+        "loading": "Logging in..."
+      },
+      "registerPrompt": "Don't have an account?",
+      "registerLink": "Register here",
+      "forgotPassword": "Forgot password?"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "generic": "Something went wrong. Please try again.",
+      "networkError": "Network error. Please check your connection.",
+      "tooManyAttempts": "Too many login attempts. Please try again later."
+    }
+  },
+  "logout": {
+    "button": "Logout"
+  },
+  "questionsList": {
+    "title": "Questions",
+    "addQuestion": "Add Question",
+    "empty": "No questions added yet",
+    "loading": "Loading questions...",
+    "questionType": "Type",
+    "types": {
+      "text": "Text",
+      "singleChoice": "Single Choice",
+      "multipleChoice": "Multiple Choice"
+    },
+    "actions": {
+      "edit": "Edit question",
+      "delete": "Delete question"
+    },
+    "delete": {
+      "title": "Delete Question",
+      "message": "Are you sure you want to delete this question? This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "success": "Question deleted successfully",
+      "error": "Failed to delete question"
+    }
+  },
+  "register": {
+    "title": "Register",
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": {
+        "default": "Register",
+        "loading": "Registering..."
+      }
+    },
+    "loginPrompt": "Already have an account?",
+    "loginLink": "Login",
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "emailInUse": "Email is already in use",
+      "invalidEmail": "Please enter a valid email",
+      "weakPassword": "Password is too weak"
+    }
+  },
+  "surveyAnalytics": {
+    "title": "Survey Analytics",
+    "errors": {
+      "loading": "Error loading analytics: {{message}}"
+    },
+    "survey": {
+      "responses": "Responses: {{count}}",
+      "completionRate": "Completion Rate: {{rate}}%"
+    }
+  },
+  "thankYou": {
+    "title": "Thank You!",
+    "message": "Your response has been successfully submitted. We appreciate your feedback!",
+    "status": "Response Recorded ✓"
+  },
+  "tokenList": {
+    "loading": "Loading tokens...",
+    "title": "Available Tokens (Unused)",
+    "empty": "No tokens available",
+    "actions": {
+      "shuffle": "Shuffle Tokens",
+      "copy": "Copy All",
+      "copied": "Copied!",
+      "copyTooltip": "Copy to clipboard",
+      "download": "Download Tokens"
+    },
+    "tokensAvailable": "{{count}} tokens available",
+    "info": "These tokens can be used to submit survey responses anonymously. Each token can be used only once.",
+    "errors": {
+      "loadFailed": "Failed to load tokens",
+      "copyFailed": "Failed to copy tokens",
+      "downloadFailed": "Failed to download tokens"
+    },
+    "textarea": {
+      "placeholder": "Tokens will appear here",
+      "label": "Token list",
+      "copyInstructions": "Click 'Copy All' to copy tokens"
+    }
+  },
+  "viewAllSurveys": {
+    "title": "All Surveys",
+    "loading": "Loading surveys...",
+    "empty": "No surveys found",
+    "table": {
+      "refresh": "Refresh List",
+      "headers": {
+        "title": "Survey Title",
+        "dateCreated": "Created On",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "viewResponses": "View Responses",
+        "viewAnalytics": "Analytics"
+      }
+    },
+    "actions": {
+      "createNew": "Create New Survey"
+    },
+    "delete": {
+      "title": "Delete Survey",
+      "message": "Are you sure you want to delete this survey? All responses will be permanently deleted.",
+      "confirm": "Yes, delete",
+      "cancel": "Cancel",
+      "success": "Survey deleted successfully",
+      "error": "Failed to delete survey"
+    },
+    "errors": {
+      "loading": "Error loading surveys",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "surveyAnalyticsDetails": {
+    "navigation": {
+      "backToSurveys": "Back to Surveys"
+    },
+    "loading": "Loading survey analytics...",
+    "errors": {
+      "loading": "Error loading survey analytics: {{message}}",
+      "notFound": "Survey not found"
+    },
+    "metrics": {
+      "totalResponses": {
+        "title": "Total Responses",
+        "value": "{{count}}"
+      },
+      "completionRate": {
+        "title": "Completion Rate",
+        "value": "{{rate}}%"
+      }
+    },
+    "questions": {
+      "title": "Question {{number}}: {{text}}",
+      "types": {
+        "singleChoice": {
+          "responses": "{{count}} responses",
+          "percentage": "{{value}}%"
+        },
+        "multipleChoice": {
+          "selections": "{{count}} selections",
+          "percentage": "{{value}}%"
+        },
+        "text": {
+          "totalResponses": "Total text responses: {{count}}",
+          "mostCommonWords": "Most Common Words",
+          "occurrences": "{{count}} occurrences ({{percentage}}%)"
+        }
+      }
+    },
+    "chart": {
+      "tooltip": {
+        "responses": "Responses: {{count}}",
+        "percentage": "{{value}}%"
+      }
+    }
+  }
+}

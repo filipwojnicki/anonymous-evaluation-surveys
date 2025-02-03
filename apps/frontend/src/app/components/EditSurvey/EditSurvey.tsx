@@ -4,10 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Header } from '../Header';
 import { UPDATE_SURVEY } from '../../../api/gql/mutations';
 import { GET_SURVEY, GET_SURVEYS_BY_USER } from '../../../api/gql/queries';
+import { useTranslation } from 'react-i18next';
 
 export const EditSurvey = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -63,18 +65,20 @@ export const EditSurvey = () => {
       <Header />
       <div className="flex items-center justify-center">
         <div className="bg-white p-8 rounded-xl shadow-lg max-w-3xl w-full">
-          <h2 className="text-2xl font-bold text-gray-700 mb-6">Edit Survey</h2>
+          <h2 className="text-2xl font-bold text-gray-700 mb-6">
+            {t('editSurvey.title')}
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-gray-600 font-medium">
-                Survey Title
+                {t('editSurvey.form.surveyTitle')}
               </label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                placeholder="Enter survey title"
+                placeholder={t('editSurvey.form.titlePlaceholder')}
                 required
                 minLength={3}
                 maxLength={100}
@@ -82,13 +86,13 @@ export const EditSurvey = () => {
             </div>
             <div>
               <label className="block text-gray-600 font-medium">
-                Description
+                {t('editSurvey.form.description')}
               </label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                placeholder="Enter survey description"
+                placeholder={t('editSurvey.form.descriptionPlaceholder')}
                 rows={4}
               />
             </div>
@@ -97,10 +101,13 @@ export const EditSurvey = () => {
               disabled={mutationLoading}
               className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition disabled:bg-blue-400"
             >
-              {mutationLoading ? 'Saving...' : 'Save Changes'}
+              {mutationLoading
+                ? t('editSurvey.form.submit.loading')
+                : t('editSurvey.form.submit.default')}
             </button>
             {mutationError && (
               <p className="text-red-500 text-sm mt-2">
+                {t('editSurvey.errors.generic')}
                 {mutationError.message}
               </p>
             )}
