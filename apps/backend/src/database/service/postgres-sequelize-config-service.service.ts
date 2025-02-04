@@ -21,7 +21,19 @@ export class PostgresSequelizeConfigService implements SequelizeOptionsFactory {
         .get<string>('database.password', '')
         .replace(/["']/g, ''),
       database: this.configService.get<string>('database.database'),
-      ssl: true,
+      ssl:
+        this.configService.get<string>('NODE_ENV') === 'development'
+          ? false
+          : true,
+      dialectOptions: {
+        ssl:
+          this.configService.get<string>('NODE_ENV') === 'development'
+            ? false
+            : {
+                require: true,
+                rejectUnauthorized: false,
+              },
+      },
     };
   }
 }
