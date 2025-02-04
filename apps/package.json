@@ -18,6 +18,8 @@
     "sort-package-json": "npx sort-package-json",
     "start:backend:dev": "nx serve backend",
     "start:frontend:dev": "nx serve frontend",
+    "build:backend": "nx build backend",
+    "build:frontend": "nx build frontend",
     "test": "nx run-many --target=test --all"
   },
   "config": {
