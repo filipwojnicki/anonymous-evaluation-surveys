@@ -41,6 +41,9 @@ import { AppResolver } from './app/app.resolver';
         autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
         sortSchema: true,
         playground: true,
+        server: {
+          path: '/api/graphql',
+        },
         path: '/api/graphql',
         introspection: process.env.NODE_ENV === 'development',
         installSubscriptionHandlers: true,
