@@ -3,9 +3,11 @@ import { InjectModel } from '@nestjs/sequelize';
 import { ConfigService } from '@nestjs/config';
 import { Args } from '@nestjs/graphql';
 import * as crypto from 'crypto';
-import { Answer, Response, Token } from '../models';
+import { Answer, Question, Response, Token } from '../models';
 import { Sequelize } from 'sequelize-typescript';
 import { SubmitSurveyResponseInput } from '../dto/submit-survey.input';
+import { TextAnswerDto } from '../dto/answer-text.dto';
+import { QuestionType } from '../types/question-type.enum';
 
 @Injectable()
 export class ResponseService {
@@ -74,5 +76,27 @@ export class ResponseService {
 
       return true;
     });
+  }
+
+  async getTextAnswers(questionId: string): Promise<TextAnswerDto[]> {
+    const answers = await this.answerModel.findAll({
+      where: {
+        questionId,
+      },
+      include: [
+        {
+          model: Question,
+          where: {
+            type: QuestionType.TEXT,
+          },
+          attributes: [],
+        },
+      ],
+      attributes: ['answer'],
+    });
+
+    return answers.map((answer) => ({
+      text: answer.answer,
+    }));
   }
 }

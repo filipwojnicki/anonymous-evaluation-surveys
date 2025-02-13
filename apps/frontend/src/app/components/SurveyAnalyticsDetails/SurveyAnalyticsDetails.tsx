@@ -13,6 +13,7 @@ import { useQuery } from '@apollo/client';
 import { GET_SURVEY_ANALYTICS_DETAILS } from '../../../api/gql/queries';
 import { QuestionType } from '../../../api/gql/__generated__/graphql';
 import { useTranslation } from 'react-i18next';
+import { TextAnswersModal } from '../TextAnswersModal';
 
 export const SurveyAnalyticsDetails = () => {
   const { t } = useTranslation();
@@ -140,7 +141,7 @@ export const SurveyAnalyticsDetails = () => {
                       {question.answerFrequency.map((answer) => (
                         <div
                           key={answer.text}
-                          className="flex items-center justify-between p-3 bg-white rounded-lg"
+                          className="flex items-center justify-between p-3 bg-white rounded-lg shadow-md"
                         >
                           <span className="font-medium text-gray-700">
                             {answer.text}
@@ -182,7 +183,7 @@ export const SurveyAnalyticsDetails = () => {
                       {question.answerFrequency.map((answer) => (
                         <div
                           key={answer.text}
-                          className="flex items-center justify-between p-3 bg-white rounded-lg"
+                          className="flex items-center justify-between p-3 bg-white rounded-lg shadow-md"
                         >
                           <span className="font-medium text-gray-700">
                             {answer.text}
@@ -209,7 +210,7 @@ export const SurveyAnalyticsDetails = () => {
 
                 {question.type === QuestionType.Text.toLowerCase() && (
                   <div className="space-y-6">
-                    <div className="bg-white rounded-lg p-6">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
                       <p className="text-gray-600 mb-2">
                         {t(
                           'surveyAnalyticsDetails.questions.types.text.totalResponses',
@@ -227,7 +228,7 @@ export const SurveyAnalyticsDetails = () => {
                           {question.answerFrequency.map((word) => (
                             <div
                               key={word.text}
-                              className="bg-gray-50 rounded-lg p-4"
+                              className="bg-gray-50 rounded-lg p-4 shadow-sm"
                             >
                               <div className="flex justify-between mb-2">
                                 <span className="font-medium text-gray-700">
@@ -252,6 +253,12 @@ export const SurveyAnalyticsDetails = () => {
                             </div>
                           ))}
                         </div>
+                      </div>
+                      <div className="mt-4">
+                        <TextAnswersModal
+                          questionId={question.id}
+                          questionText={question.text}
+                        />
                       </div>
                     </div>
                   </div>

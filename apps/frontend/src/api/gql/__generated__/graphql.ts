@@ -133,6 +133,7 @@ export type Query = {
   getSurveyTokens: Array<TokenDto>;
   getSurveysAnalytics: Array<SurveyAnalyticsDto>;
   getSurveysByUser: Array<SurveyDto>;
+  getTextAnswers: Array<TextAnswerDto>;
   hello: Scalars['String']['output'];
 };
 
@@ -170,6 +171,11 @@ export type QueryGetSurveyByTokenArgs = {
 
 export type QueryGetSurveyTokensArgs = {
   surveyId: Scalars['String']['input'];
+};
+
+
+export type QueryGetTextAnswersArgs = {
+  questionId: Scalars['String']['input'];
 };
 
 export type QuestionAnalyticsDto = {
@@ -227,6 +233,10 @@ export type SurveyDto = {
   questions?: Maybe<Array<QuestionDto>>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TextAnswerDto = {
+  text: Scalars['String']['output'];
 };
 
 export type TokenDto = {
@@ -328,6 +338,13 @@ export type GetQuestionsQueryVariables = Exact<{
 
 export type GetQuestionsQuery = { getQuestions: Array<{ id: string, text: string, type: string, answerOptions?: Array<{ id: string, text: string }> | null }> };
 
+export type GetRandomUnusedTokenQueryVariables = Exact<{
+  surveyId: Scalars['String']['input'];
+}>;
+
+
+export type GetRandomUnusedTokenQuery = { getRandomUnusedToken: { token: string } };
+
 export type GetSurveyQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
@@ -365,6 +382,13 @@ export type GetSurveysByUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetSurveysByUserQuery = { getSurveysByUser: Array<{ title: string, id: string, createdAt: any }> };
+
+export type GetTextAnswersQueryVariables = Exact<{
+  questionId: Scalars['String']['input'];
+}>;
+
+
+export type GetTextAnswersQuery = { getTextAnswers: Array<{ text: string }> };
 
 
 export const CreateQuestionDocument = gql`
@@ -756,6 +780,46 @@ export type GetQuestionsQueryHookResult = ReturnType<typeof useGetQuestionsQuery
 export type GetQuestionsLazyQueryHookResult = ReturnType<typeof useGetQuestionsLazyQuery>;
 export type GetQuestionsSuspenseQueryHookResult = ReturnType<typeof useGetQuestionsSuspenseQuery>;
 export type GetQuestionsQueryResult = Apollo.QueryResult<GetQuestionsQuery, GetQuestionsQueryVariables>;
+export const GetRandomUnusedTokenDocument = gql`
+    query GetRandomUnusedToken($surveyId: String!) {
+  getRandomUnusedToken(surveyId: $surveyId) {
+    token
+  }
+}
+    `;
+
+/**
+ * __useGetRandomUnusedTokenQuery__
+ *
+ * To run a query within a React component, call `useGetRandomUnusedTokenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRandomUnusedTokenQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRandomUnusedTokenQuery({
+ *   variables: {
+ *      surveyId: // value for 'surveyId'
+ *   },
+ * });
+ */
+export function useGetRandomUnusedTokenQuery(baseOptions: Apollo.QueryHookOptions<GetRandomUnusedTokenQuery, GetRandomUnusedTokenQueryVariables> & ({ variables: GetRandomUnusedTokenQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRandomUnusedTokenQuery, GetRandomUnusedTokenQueryVariables>(GetRandomUnusedTokenDocument, options);
+      }
+export function useGetRandomUnusedTokenLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRandomUnusedTokenQuery, GetRandomUnusedTokenQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRandomUnusedTokenQuery, GetRandomUnusedTokenQueryVariables>(GetRandomUnusedTokenDocument, options);
+        }
+export function useGetRandomUnusedTokenSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetRandomUnusedTokenQuery, GetRandomUnusedTokenQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetRandomUnusedTokenQuery, GetRandomUnusedTokenQueryVariables>(GetRandomUnusedTokenDocument, options);
+        }
+export type GetRandomUnusedTokenQueryHookResult = ReturnType<typeof useGetRandomUnusedTokenQuery>;
+export type GetRandomUnusedTokenLazyQueryHookResult = ReturnType<typeof useGetRandomUnusedTokenLazyQuery>;
+export type GetRandomUnusedTokenSuspenseQueryHookResult = ReturnType<typeof useGetRandomUnusedTokenSuspenseQuery>;
+export type GetRandomUnusedTokenQueryResult = Apollo.QueryResult<GetRandomUnusedTokenQuery, GetRandomUnusedTokenQueryVariables>;
 export const GetSurveyDocument = gql`
     query GetSurvey($id: String!) {
   getSurvey(id: $id) {
@@ -1025,3 +1089,43 @@ export type GetSurveysByUserQueryHookResult = ReturnType<typeof useGetSurveysByU
 export type GetSurveysByUserLazyQueryHookResult = ReturnType<typeof useGetSurveysByUserLazyQuery>;
 export type GetSurveysByUserSuspenseQueryHookResult = ReturnType<typeof useGetSurveysByUserSuspenseQuery>;
 export type GetSurveysByUserQueryResult = Apollo.QueryResult<GetSurveysByUserQuery, GetSurveysByUserQueryVariables>;
+export const GetTextAnswersDocument = gql`
+    query GetTextAnswers($questionId: String!) {
+  getTextAnswers(questionId: $questionId) {
+    text
+  }
+}
+    `;
+
+/**
+ * __useGetTextAnswersQuery__
+ *
+ * To run a query within a React component, call `useGetTextAnswersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTextAnswersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTextAnswersQuery({
+ *   variables: {
+ *      questionId: // value for 'questionId'
+ *   },
+ * });
+ */
+export function useGetTextAnswersQuery(baseOptions: Apollo.QueryHookOptions<GetTextAnswersQuery, GetTextAnswersQueryVariables> & ({ variables: GetTextAnswersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTextAnswersQuery, GetTextAnswersQueryVariables>(GetTextAnswersDocument, options);
+      }
+export function useGetTextAnswersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTextAnswersQuery, GetTextAnswersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTextAnswersQuery, GetTextAnswersQueryVariables>(GetTextAnswersDocument, options);
+        }
+export function useGetTextAnswersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetTextAnswersQuery, GetTextAnswersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTextAnswersQuery, GetTextAnswersQueryVariables>(GetTextAnswersDocument, options);
+        }
+export type GetTextAnswersQueryHookResult = ReturnType<typeof useGetTextAnswersQuery>;
+export type GetTextAnswersLazyQueryHookResult = ReturnType<typeof useGetTextAnswersLazyQuery>;
+export type GetTextAnswersSuspenseQueryHookResult = ReturnType<typeof useGetTextAnswersSuspenseQuery>;
+export type GetTextAnswersQueryResult = Apollo.QueryResult<GetTextAnswersQuery, GetTextAnswersQueryVariables>;

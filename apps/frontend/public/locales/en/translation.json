@@ -342,5 +342,14 @@
   "redirect": {
     "loading": "Getting survey token...",
     "error": "Failed to get survey token. Please try again."
+  },
+  "textAnswers": {
+    "fullResponses": "Full Text Responses",
+    "searchPlaceholder": "Search in responses...",
+    "noMatches": "No responses matching \"{{searchTerm}}\"",
+    "noAnswers": "No text responses available",
+    "totalResponses": "Total responses: {{count}}",
+    "viewResponses": "View Full Responses",
+    "close": "Close"
   }
 }

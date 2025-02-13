@@ -72,6 +72,7 @@ type Query {
   getSurveyTokens(surveyId: String!): [TokenDto!]!
   getSurveysAnalytics: [SurveyAnalyticsDto!]!
   getSurveysByUser: [SurveyDto!]!
+  getTextAnswers(questionId: String!): [TextAnswerDto!]!
   hello: String!
 }
 
@@ -130,6 +131,10 @@ type SurveyDto {
   questions: [QuestionDto!]
   title: String!
   updatedAt: DateTime!
+}
+
+type TextAnswerDto {
+  text: String!
 }
 
 type TokenDto {

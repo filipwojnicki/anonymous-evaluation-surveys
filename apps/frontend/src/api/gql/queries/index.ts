@@ -6,3 +6,4 @@ export * from './getQuestion';
 export * from './getSurveyByToken';
 export * from './getSurveysAnalitycs';
 export * from './getSurveyAnalyticsDetails';
+export * from './getTextAnswers';

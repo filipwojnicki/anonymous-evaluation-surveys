@@ -342,5 +342,14 @@
   "redirect": {
     "loading": "Pobieranie tokenu ankiety...",
     "error": "Nie udało się pobrać tokenu ankiety. Spróbuj ponownie."
+  },
+  "textAnswers": {
+    "fullResponses": "Odpowiedzi Tekstowe",
+    "searchPlaceholder": "Szukaj w odpowiedziach...",
+    "noMatches": "Brak odpowiedzi zawierających \"{{searchTerm}}\"",
+    "noAnswers": "Brak odpowiedzi tekstowych",
+    "totalResponses": "Wszystkie odpowiedzi: {{count}}",
+    "viewResponses": "Zobacz wszystkie odpowiedzi",
+    "close": "Zamknij"
   }
 }
