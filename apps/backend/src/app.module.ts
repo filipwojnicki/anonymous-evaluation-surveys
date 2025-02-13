@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { AppController } from './app/app.controller';
 import { AppService } from './app/app.service';
 import { DatabaseModule } from './database/database.module';
 import { SurveyModule } from './survey/survey.module';
@@ -66,7 +65,6 @@ import { CombinedThrottlerGuard } from './app/combined-throttler.guard';
     AuthModule,
     UserModule,
   ],
-  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
