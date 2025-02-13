@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { Request, Response } from 'express';
 import { AppService } from './app/app.service';
 import { DatabaseModule } from './database/database.module';
 import { SurveyModule } from './survey/survey.module';
@@ -12,8 +13,11 @@ import Joi from 'joi';
 import config from './config/config';
 import { join } from 'path';
 import { AppResolver } from './app/app.resolver';
-import { APP_GUARD } from '@nestjs/core';
-import { CombinedThrottlerGuard } from './app/combined-throttler.guard';
+
+export interface GraphQLContext {
+  req: Request;
+  res: Response;
+}
 
 @Module({
   imports: [
@@ -58,6 +62,16 @@ import { CombinedThrottlerGuard } from './app/combined-throttler.guard';
         subscriptions: {
           'subscriptions-transport-ws': process.env.NODE_ENV === 'development',
         },
+        context: ({
+          req,
+          res,
+        }: {
+          req: Request;
+          res: Response;
+        }): GraphQLContext => ({
+          req,
+          res,
+        }),
       }),
     }),
     DatabaseModule,
@@ -65,13 +79,6 @@ import { CombinedThrottlerGuard } from './app/combined-throttler.guard';
     AuthModule,
     UserModule,
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: CombinedThrottlerGuard,
-    },
-    AppService,
-    AppResolver,
-  ],
+  providers: [AppService, AppResolver],
 })
 export class AppModule {}
