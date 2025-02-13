@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app/app.controller';
 import { AppService } from './app/app.service';
 import { DatabaseModule } from './database/database.module';
@@ -12,6 +13,8 @@ import Joi from 'joi';
 import config from './config/config';
 import { join } from 'path';
 import { AppResolver } from './app/app.resolver';
+import { APP_GUARD } from '@nestjs/core';
+import { CombinedThrottlerGuard } from './app/combined-throttler.guard';
 
 @Module({
   imports: [
@@ -34,6 +37,12 @@ import { AppResolver } from './app/app.resolver';
         abortEarly: true,
       },
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60,
+        limit: 30,
+      },
+    ]),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
 
@@ -58,6 +67,13 @@ import { AppResolver } from './app/app.resolver';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AppResolver],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: CombinedThrottlerGuard,
+    },
+    AppService,
+    AppResolver,
+  ],
 })
 export class AppModule {}

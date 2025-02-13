@@ -14,7 +14,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   app.enableCors({
-    origin: '*', //'https://quickdraw.gg',
+    origin: '*',
     credentials: true,
   });
 
