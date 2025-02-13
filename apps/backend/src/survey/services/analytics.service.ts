@@ -58,6 +58,7 @@ export class AnalyticsService {
             [Sequelize.fn('COUNT', Sequelize.col('*')), 'count'],
           ],
           group: ['answer'],
+          raw: true,
         });
 
         if (question.type === QuestionType.TEXT) {
@@ -93,27 +94,21 @@ export class AnalyticsService {
             type: question.type,
             answerFrequency: wordFrequency,
           };
-
-          // answers.map((answer) => ({
-          //   text: answer.answer,
-          //   count: Number(answer.get('count')),
-          //   percentage: (Number(answer.get('count')) / responses) * 100,
-          // }));
         }
 
-        const optionIds = new Set(
-          answers.flatMap((answer) => answer.answer.split(','))
-        );
-
-        const answerOptions = await this.answerOptionModel.findAll({
-          where: { id: { [Op.in]: Array.from(optionIds) } },
+        const allAnswerOptions = await this.answerOptionModel.findAll({
+          where: { questionId: question.id },
         });
 
-        const optionCounts = answers.reduce((acc, answer) => {
-          const ids = answer.answer.split(',');
-          ids.forEach((id) => {
-            acc[id] = (acc[id] || 0) + 1;
-          });
+        const optionCounts = answers.reduce((acc, answer: any) => {
+          if (question.type === QuestionType.SINGLE_CHOICE) {
+            acc[answer.answer] = Number(answer.count);
+          } else {
+            const ids = answer.answer.split(',');
+            ids.forEach((id: string | number) => {
+              acc[id] = (acc[id] || 0) + Number(answer.count);
+            });
+          }
           return acc;
         }, {} as Record<string, number>);
 
@@ -121,7 +116,7 @@ export class AnalyticsService {
           id: question.id,
           text: question.text,
           type: question.type,
-          answerFrequency: answerOptions.map((option) => ({
+          answerFrequency: allAnswerOptions.map((option) => ({
             text: option.text,
             count: optionCounts[option.id] || 0,
             percentage: ((optionCounts[option.id] || 0) / responses) * 100,
